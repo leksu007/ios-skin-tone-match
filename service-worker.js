@@ -1,13 +1,13 @@
-const CACHE_NAME = 'colormatch-v1';
+const CACHE_NAME = 'colormatch-v2';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/css/style.css',
-  '/js/app.js',
-  '/js/palettes.js',
-  '/js/color-analysis.js',
-  '/manifest.json',
-  '/icons/icon.svg'
+  './',
+  './index.html',
+  './css/style.css',
+  './js/app.js',
+  './js/palettes.js',
+  './js/color-analysis.js',
+  './manifest.json',
+  './icons/icon.svg'
 ];
 
 self.addEventListener('install', (event) => {

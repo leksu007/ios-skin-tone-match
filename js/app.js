@@ -37,17 +37,31 @@ function initPaletteSelector() {
     select.appendChild(optgroup);
   }
 
+  const defaultCheck = document.getElementById('default-check');
+
   select.addEventListener('change', () => {
     selectedPaletteKey = select.value;
     showPalettePreview(selectedPaletteKey);
     document.getElementById('btn-start').disabled = false;
+    if (defaultCheck.checked) {
+      localStorage.setItem('defaultPalette', selectedPaletteKey);
+    }
   });
 
-  // Restore last selection
-  const saved = localStorage.getItem('selectedPalette');
+  defaultCheck.addEventListener('change', () => {
+    if (defaultCheck.checked && selectedPaletteKey) {
+      localStorage.setItem('defaultPalette', selectedPaletteKey);
+    } else {
+      localStorage.removeItem('defaultPalette');
+    }
+  });
+
+  // Restore default palette
+  const saved = localStorage.getItem('defaultPalette');
   if (saved && PALETTES[saved]) {
     select.value = saved;
     selectedPaletteKey = saved;
+    defaultCheck.checked = true;
     showPalettePreview(saved);
     document.getElementById('btn-start').disabled = false;
   }
@@ -56,8 +70,6 @@ function initPaletteSelector() {
 function showPalettePreview(key) {
   const palette = getPaletteByKey(key);
   if (!palette) return;
-
-  localStorage.setItem('selectedPalette', key);
 
   document.getElementById('palette-name').textContent = palette.name;
   document.getElementById('palette-desc').textContent = palette.description;
