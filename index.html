@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ColorMatch">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <title>ColorMatch</title>
+</head>
+<body>
+
+  <!-- Screen 1: Palette Selection -->
+  <div id="screen-palette" class="screen active">
+    <div class="container">
+      <div class="header">
+        <h1>ColorMatch</h1>
+        <p class="subtitle">Find clothes that match your skin tone palette</p>
+      </div>
+
+      <div class="section">
+        <label class="label" for="palette-select">Select your color season</label>
+        <select id="palette-select">
+          <option value="" disabled selected>Choose your palette...</option>
+        </select>
+      </div>
+
+      <div id="palette-preview" class="palette-preview hidden">
+        <p class="palette-name" id="palette-name"></p>
+        <p class="palette-desc" id="palette-desc"></p>
+        <div class="color-swatches" id="palette-swatches"></div>
+      </div>
+
+      <button id="btn-start" class="btn btn-primary" disabled>
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+        Open Camera
+      </button>
+    </div>
+  </div>
+
+  <!-- Screen 2: Camera -->
+  <div id="screen-camera" class="screen">
+    <div class="camera-wrapper">
+      <video id="camera-feed" autoplay playsinline></video>
+      <div class="camera-overlay">
+        <div class="camera-guide"></div>
+      </div>
+      <div class="camera-controls">
+        <button id="btn-back" class="btn btn-circle btn-secondary" aria-label="Back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <button id="btn-capture" class="btn btn-circle btn-capture" aria-label="Take Photo">
+          <div class="capture-inner"></div>
+        </button>
+        <div class="btn-circle btn-placeholder"></div>
+      </div>
+    </div>
+    <canvas id="capture-canvas" class="hidden"></canvas>
+  </div>
+
+  <!-- Screen 3: Results -->
+  <div id="screen-results" class="screen">
+    <div class="container">
+      <div class="header">
+        <h1>Results</h1>
+      </div>
+
+      <div id="overall-verdict" class="verdict-card">
+        <div class="verdict-icon" id="verdict-icon"></div>
+        <p class="verdict-text" id="verdict-text"></p>
+        <p class="verdict-palette" id="verdict-palette"></p>
+      </div>
+
+      <div class="section">
+        <h2>Detected Colors</h2>
+        <div id="color-results" class="color-results"></div>
+      </div>
+
+      <div class="actions">
+        <button id="btn-retry" class="btn btn-primary">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+          Try Again
+        </button>
+        <button id="btn-change-palette" class="btn btn-secondary">Change Palette</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading overlay -->
+  <div id="loading" class="loading hidden">
+    <div class="spinner"></div>
+    <p>Analyzing colors...</p>
+  </div>
+
+  <script src="js/palettes.js"></script>
+  <script src="js/color-analysis.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
